@@ -4,9 +4,9 @@
 *                         www.segger.com                             *
 **********************************************************************
 
-File          : ./DevC.jdebug
-Created       : 11 Mar 2025 09:54
-Ozone Version : V3.36
+File          : D:/Documents/XRobot/bsp-dev-c/DevC.jdebug
+Created       : 5 Oct 2025 15:15
+Ozone Version : V3.38b
 */
 
 /*********************************************************************
@@ -22,19 +22,18 @@ void OnProjectLoad (void) {
   //
   // Dialog-generated settings
   //
-  Project.AddPathSubstitute ("./", "$(ProjectDir)");
-  Project.AddPathSubstitute ("./", "$(ProjectDir)");
+  Project.AddPathSubstitute ("D:/Documents/XRobot/bsp-dev-c", "$(ProjectDir)");
+  Project.AddPathSubstitute ("d:/documents/xrobot/bsp-dev-c", "$(ProjectDir)");
   Project.SetDevice ("STM32F407IG");
   Project.SetHostIF ("USB", "");
   Project.SetTargetIF ("SWD");
   Project.SetTIFSpeed ("4 MHz");
   Project.AddSvdFile ("$(InstallDir)/Config/CPU/Cortex-M4F.svd");
-  Project.AddSvdFile ("$(InstallDir)/Config/Peripherals/STM32F407IG.svd");
   //
   // User settings
   //
+  File.Open ("$(ProjectDir)/build/debug/DevC.elf");
   Project.SetOSPlugin ("FreeRTOSPlugin_CM4");
-  File.Open ("$(ProjectDir)/build/Debug/DevC");
 }
 
 /*********************************************************************

@@ -74,14 +74,14 @@ modules:
       reverse: false
   template_args:
     MotorType: RMMotorContainer
-- id: helm_chassis
+- id: Omni_chassis
   name: Chassis
   constructor_args:
     cmd: '@cmd'
     motor_can1: '@motor_can1'
     motor_can2: '@motor_can2'
     task_stack_depth: 2048
-    pid_param:
+    pid_param_1:
       k: 1.0
       p: 0.0
       i: 0.0
@@ -90,5 +90,5 @@ modules:
       out_limit: 0.0
       cycle: false
   template_args:
-    ChassisType: Helm<RMMotorContainer>
+    ChassisType: Omni<RMMotorContainer>
     MotorType: RMMotorContainer
