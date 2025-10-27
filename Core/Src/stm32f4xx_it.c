@@ -61,7 +61,6 @@ extern void STM32_UART_ISR_Handler_IDLE(UART_HandleTypeDef *huart);
 /* External variables --------------------------------------------------------*/
 extern CAN_HandleTypeDef hcan1;
 extern CAN_HandleTypeDef hcan2;
-extern DMA_HandleTypeDef hdma_i2c2_tx;
 extern DMA_HandleTypeDef hdma_i2c3_rx;
 extern DMA_HandleTypeDef hdma_i2c3_tx;
 extern I2C_HandleTypeDef hi2c3;
@@ -399,20 +398,6 @@ void USART3_IRQHandler(void)
   /* USER CODE BEGIN USART3_IRQn 1 */
 
   /* USER CODE END USART3_IRQn 1 */
-}
-
-/**
-  * @brief This function handles DMA1 stream7 global interrupt.
-  */
-void DMA1_Stream7_IRQHandler(void)
-{
-  /* USER CODE BEGIN DMA1_Stream7_IRQn 0 */
-
-  /* USER CODE END DMA1_Stream7_IRQn 0 */
-  HAL_DMA_IRQHandler(&hdma_i2c2_tx);
-  /* USER CODE BEGIN DMA1_Stream7_IRQn 1 */
-
-  /* USER CODE END DMA1_Stream7_IRQn 1 */
 }
 
 /**

@@ -32,7 +32,6 @@ extern ADC_HandleTypeDef hadc3;
 extern CAN_HandleTypeDef hcan1;
 extern CAN_HandleTypeDef hcan2;
 extern I2C_HandleTypeDef hi2c1;
-extern I2C_HandleTypeDef hi2c2;
 extern I2C_HandleTypeDef hi2c3;
 extern PCD_HandleTypeDef hpcd_USB_OTG_FS;
 extern PCD_HandleTypeDef hpcd_USB_OTG_HS;
@@ -59,7 +58,6 @@ static uint8_t usart3_rx_buf[128];
 static uint8_t usart6_tx_buf[512];
 static uint8_t usart6_rx_buf[512];
 static uint8_t i2c1_buf[32];
-static uint8_t i2c2_buf[32];
 static uint8_t i2c3_buf[32];
 static uint8_t usb_otg_hs_ep0_in_buf[8];
 static uint8_t usb_otg_hs_ep0_out_buf[8];
@@ -76,7 +74,7 @@ extern "C" void app_main(void) {
   // clang-format on
   // NOLINTEND
   /* User Code Begin 2 */
-  
+
   /* User Code End 2 */
   // clang-format off
   // NOLINTBEGIN
@@ -93,6 +91,8 @@ extern "C" void app_main(void) {
   STM32GPIO HW2(HW2_GPIO_Port, HW2_Pin);
   STM32GPIO ACCL_INT(ACCL_INT_GPIO_Port, ACCL_INT_Pin, EXTI4_IRQn);
   STM32GPIO GYRO_INT(GYRO_INT_GPIO_Port, GYRO_INT_Pin, EXTI9_5_IRQn);
+  STM32GPIO CAMERA(CAMERA_GPIO_Port, CAMERA_Pin);
+  STM32GPIO IMU_INT(IMU_INT_GPIO_Port, IMU_INT_Pin, EXTI1_IRQn);
   STM32GPIO CMPS_INT(CMPS_INT_GPIO_Port, CMPS_INT_Pin, EXTI3_IRQn);
   STM32GPIO CMPS_RST(CMPS_RST_GPIO_Port, CMPS_RST_Pin);
   STM32GPIO LED_B(LED_B_GPIO_Port, LED_B_Pin);
@@ -130,8 +130,6 @@ extern "C" void app_main(void) {
               usart6_rx_buf, usart6_tx_buf, 15);
 
   STM32I2C i2c1(&hi2c1, i2c1_buf, 3);
-
-  STM32I2C i2c2(&hi2c2, i2c2_buf, 3);
 
   STM32I2C i2c3(&hi2c3, i2c3_buf, 3);
 
@@ -213,14 +211,15 @@ extern "C" void app_main(void) {
     LibXR::Entry<LibXR::UART>({usart3, {"uart_dr16"}}),
     LibXR::Entry<LibXR::UART>({usart6, {"uart_ai", "uart_ext_controller"}}),
     LibXR::Entry<LibXR::I2C>({i2c1, {"i2c1"}}),
-    LibXR::Entry<LibXR::I2C>({i2c2, {"i2c2"}}),
     LibXR::Entry<LibXR::I2C>({i2c3, {"i2c_ist8310"}}),
     LibXR::Entry<LibXR::CAN>({can1, {"can1", "imu_can"}}),
     LibXR::Entry<LibXR::CAN>({can2, {"can2"}}),
     LibXR::Entry<LibXR::RamFS>({ramfs, {"ramfs"}}),
     LibXR::Entry<LibXR::Terminal<32, 32, 5, 5>>({terminal, {"terminal"}}),
     LibXR::Entry<LibXR::UART>({usb_otg_fs_cdc, {"usb_otg_fs_cdc"}}),
-    LibXR::Entry<LibXR::UART>({usb_otg_hs_cdc, {"usb_otg_hs_cdc"}})
+    LibXR::Entry<LibXR::UART>({usb_otg_hs_cdc, {"usb_otg_hs_cdc"}}),
+    LibXR::Entry<LibXR::GPIO>({CAMERA, {"CAMERA"}}),
+    LibXR::Entry<LibXR::GPIO>({IMU_INT, {"IMU_INT"}})
   };
 
   // clang-format on

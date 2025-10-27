@@ -65,7 +65,6 @@ void MX_TIM5_Init(void);
 void MX_USART3_UART_Init(void);
 void MX_TIM8_Init(void);
 void MX_RNG_Init(void);
-void MX_I2C2_Init(void);
 void MX_I2C3_Init(void);
 void MX_TIM1_Init(void);
 void MX_TIM3_Init(void);
@@ -79,8 +78,12 @@ void MX_TIM7_Init(void);
 /* USER CODE END EFP */
 
 /* Private defines -----------------------------------------------------------*/
+#define CAMERA_Pin GPIO_PIN_0
+#define CAMERA_GPIO_Port GPIOF
 #define LASER_Pin GPIO_PIN_8
 #define LASER_GPIO_Port GPIOC
+#define IMU_INT_Pin GPIO_PIN_1
+#define IMU_INT_GPIO_Port GPIOF
 #define CMPS_RST_Pin GPIO_PIN_6
 #define CMPS_RST_GPIO_Port GPIOG
 #define IMU_HEAT_PWM_Pin GPIO_PIN_6

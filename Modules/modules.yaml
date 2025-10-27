@@ -1,10 +1,10 @@
 # XRobot module configuration example
 modules:
   - xrobot-org/BlinkLED
-  - xrobot-org/BMI088
   - xrobot-org/MadgwickAHRS
   - xrobot-org/BuzzerAlarm
   - xrobot-org/IST8310
+  - qdu-future/BMI088
   - qdu-future/CMD
   - qdu-future/DR16
   - qdu-future/Motor

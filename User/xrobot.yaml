@@ -29,6 +29,8 @@ modules:
     accl_topic_name: bmi088_accl
     target_temperature: 45
     task_stack_depth: 2048
+    camera_sync_pin_name: CAMERA
+    camera_sync_div: 10
 - id: ahrs
   name: MadgwickAHRS
   constructor_args:

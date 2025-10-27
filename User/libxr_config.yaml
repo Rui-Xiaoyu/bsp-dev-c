@@ -221,10 +221,6 @@ device_aliases:
     type: I2C
     aliases:
     - i2c1
-  i2c2:
-    type: I2C
-    aliases:
-    - i2c2
   i2c3:
     type: I2C
     aliases:
@@ -254,6 +250,14 @@ device_aliases:
     type: UART
     aliases:
     - usb_otg_hs_cdc
+  CAMERA:
+    type: GPIO
+    aliases:
+    - CAMERA
+  IMU_INT:
+    type: GPIO
+    aliases:
+    - IMU_INT
 FlashLayout:
   model: STM32F407IGH6
   flash_base: '0x08000000'

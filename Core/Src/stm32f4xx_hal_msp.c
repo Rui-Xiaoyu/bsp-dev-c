@@ -23,8 +23,6 @@
 /* USER CODE BEGIN Includes */
 
 /* USER CODE END Includes */
-extern DMA_HandleTypeDef hdma_i2c2_tx;
-
 extern DMA_HandleTypeDef hdma_i2c3_rx;
 
 extern DMA_HandleTypeDef hdma_i2c3_tx;
@@ -340,50 +338,6 @@ void HAL_I2C_MspInit(I2C_HandleTypeDef* hi2c)
 
     /* USER CODE END I2C1_MspInit 1 */
   }
-  else if(hi2c->Instance==I2C2)
-  {
-    /* USER CODE BEGIN I2C2_MspInit 0 */
-
-    /* USER CODE END I2C2_MspInit 0 */
-
-    __HAL_RCC_GPIOF_CLK_ENABLE();
-    /**I2C2 GPIO Configuration
-    PF0     ------> I2C2_SDA
-    PF1     ------> I2C2_SCL
-    */
-    GPIO_InitStruct.Pin = GPIO_PIN_0|GPIO_PIN_1;
-    GPIO_InitStruct.Mode = GPIO_MODE_AF_OD;
-    GPIO_InitStruct.Pull = GPIO_PULLUP;
-    GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
-    GPIO_InitStruct.Alternate = GPIO_AF4_I2C2;
-    HAL_GPIO_Init(GPIOF, &GPIO_InitStruct);
-
-    /* Peripheral clock enable */
-    __HAL_RCC_I2C2_CLK_ENABLE();
-
-    /* I2C2 DMA Init */
-    /* I2C2_TX Init */
-    hdma_i2c2_tx.Instance = DMA1_Stream7;
-    hdma_i2c2_tx.Init.Channel = DMA_CHANNEL_7;
-    hdma_i2c2_tx.Init.Direction = DMA_MEMORY_TO_PERIPH;
-    hdma_i2c2_tx.Init.PeriphInc = DMA_PINC_DISABLE;
-    hdma_i2c2_tx.Init.MemInc = DMA_MINC_ENABLE;
-    hdma_i2c2_tx.Init.PeriphDataAlignment = DMA_PDATAALIGN_BYTE;
-    hdma_i2c2_tx.Init.MemDataAlignment = DMA_MDATAALIGN_BYTE;
-    hdma_i2c2_tx.Init.Mode = DMA_NORMAL;
-    hdma_i2c2_tx.Init.Priority = DMA_PRIORITY_HIGH;
-    hdma_i2c2_tx.Init.FIFOMode = DMA_FIFOMODE_DISABLE;
-    if (HAL_DMA_Init(&hdma_i2c2_tx) != HAL_OK)
-    {
-      Error_Handler();
-    }
-
-    __HAL_LINKDMA(hi2c,hdmatx,hdma_i2c2_tx);
-
-    /* USER CODE BEGIN I2C2_MspInit 1 */
-
-    /* USER CODE END I2C2_MspInit 1 */
-  }
   else if(hi2c->Instance==I2C3)
   {
     /* USER CODE BEGIN I2C3_MspInit 0 */
@@ -487,28 +441,6 @@ void HAL_I2C_MspDeInit(I2C_HandleTypeDef* hi2c)
     /* USER CODE BEGIN I2C1_MspDeInit 1 */
 
     /* USER CODE END I2C1_MspDeInit 1 */
-  }
-  else if(hi2c->Instance==I2C2)
-  {
-    /* USER CODE BEGIN I2C2_MspDeInit 0 */
-
-    /* USER CODE END I2C2_MspDeInit 0 */
-    /* Peripheral clock disable */
-    __HAL_RCC_I2C2_CLK_DISABLE();
-
-    /**I2C2 GPIO Configuration
-    PF0     ------> I2C2_SDA
-    PF1     ------> I2C2_SCL
-    */
-    HAL_GPIO_DeInit(GPIOF, GPIO_PIN_0);
-
-    HAL_GPIO_DeInit(GPIOF, GPIO_PIN_1);
-
-    /* I2C2 DMA DeInit */
-    HAL_DMA_DeInit(hi2c->hdmatx);
-    /* USER CODE BEGIN I2C2_MspDeInit 1 */
-
-    /* USER CODE END I2C2_MspDeInit 1 */
   }
   else if(hi2c->Instance==I2C3)
   {
