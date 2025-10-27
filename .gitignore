@@ -10,3 +10,7 @@ compile_commands.json
 build/**
 DevC.jdebug.user
 .config.json
+User/xrobot_main.hpp
+User/app_main.cpp
+User/app_main.h
+User/flash_map.hpp
