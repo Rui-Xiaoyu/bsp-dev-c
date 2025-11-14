@@ -154,12 +154,13 @@ modules:
     motor_steer_2: '@motor_can1.GetMotor(6)'
     motor_steer_3: '@motor_can1.GetMotor(7)'
     task_stack_depth: 4096
-    wheel_radius: 0.072
-    wheel_to_center: 0.207
-    gravity_height: 0.0
-    reductionratio: 19.2023
-    wheel_resistance: 0.0
-    error_compensation: 0.0
+    ChassisParam:
+      wheel_radius: 0.072
+      wheel_to_center: 0.207
+      gravity_height: 0.0
+      reductionratio: 19.2023
+      wheel_resistance: 0.0
+      error_compensation: 0.0
     pid_velocity_x_:
       k: 1.0
       p: 5.0
