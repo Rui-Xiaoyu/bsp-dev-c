@@ -74,7 +74,7 @@ extern "C" void app_main(void) {
   // clang-format on
   // NOLINTEND
   /* User Code Begin 2 */
-  
+
   /* User Code End 2 */
   // clang-format off
   // NOLINTBEGIN
@@ -174,7 +174,7 @@ extern "C" void app_main(void) {
   STDIO::write_ = usb_otg_hs_cdc.write_port_;
 
   RamFS ramfs("XRobot");
-  Terminal<32, 32, 5, 5> terminal(ramfs);
+  Terminal<32, 64, 5, 5> terminal(ramfs);
   LibXR::Thread term_thread;
   term_thread.Create(&terminal, terminal.ThreadFun, "terminal", 2048,
                      static_cast<LibXR::Thread::Priority>(3));
@@ -215,7 +215,7 @@ extern "C" void app_main(void) {
     LibXR::Entry<LibXR::CAN>({can1, {"can1", "imu_can"}}),
     LibXR::Entry<LibXR::CAN>({can2, {"can2"}}),
     LibXR::Entry<LibXR::RamFS>({ramfs, {"ramfs"}}),
-    LibXR::Entry<LibXR::Terminal<32, 32, 5, 5>>({terminal, {"terminal"}}),
+    LibXR::Entry<LibXR::Terminal<32, 64, 5, 5>>({terminal, {"terminal"}}),
     LibXR::Entry<LibXR::UART>({usb_otg_fs_cdc, {"usb_ai", "usb_otg_fs_cdc"}}),
     LibXR::Entry<LibXR::UART>({usb_otg_hs_cdc, {"usb_otg_hs_cdc"}}),
     LibXR::Entry<LibXR::GPIO>({CAMERA, {"CAMERA"}}),

@@ -52,13 +52,13 @@ modules:
     mode: CMD::Mode::CMD_OP_CTRL
     chassis_cmd_topic_name: chassis_cmd
     gimbal_cmd_topic_name: gimbal_cmd
-    fire_topic_name: fire_notify
 - id: host_cmd
   name: HostData
   constructor_args:
     cmd: '@cmd'
     host_euler_topic_name: target_eulr
-    host_chassis_data_topic_name: host_chassis_data
+    host_chassis_data_topic_name: chassis_data
+    host_fire_topic_name: fire_notify
 - id: dr16
   name: DR16
   constructor_args:
@@ -180,6 +180,7 @@ modules:
     motor_steer_1: '@&motor_steer_1'
     motor_steer_2: '@&motor_steer_2'
     motor_steer_3: '@&motor_steer_3'
+    cmd: '@&cmd'
     task_stack_depth: 4096
     ChassisParam:
       wheel_radius: 0.063
@@ -328,6 +329,7 @@ modules:
   constructor_args:
     dr16: '@dr16'
     chassis: '@omni_chassis'
+    cmd: '@cmd'
   template_args:
     ChassisType: Omni
 - id: SharedTopic_0
@@ -339,6 +341,7 @@ modules:
     topic_configs:
     - fire_notify
     - target_eulr
+    - chassis_data
 - id: SharedTopicClient_0
   name: SharedTopicClient
   constructor_args:
@@ -346,4 +349,4 @@ modules:
     task_stack_depth: 2048
     buffer_size: 256
     topic_configs:
-    - ahrs_euler
+    - ahrs_quaternion
