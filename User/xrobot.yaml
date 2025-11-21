@@ -71,7 +71,7 @@ modules:
     param:
       model: RMMotor::Model::MOTOR_M3508
       reverse: false
-      feedback_id: 0x201
+      feedback_id: 513
       can_bus_name: can1
 - id: motor_wheel_1
   name: RMMotor
@@ -79,7 +79,7 @@ modules:
     param:
       model: RMMotor::Model::MOTOR_M3508
       reverse: false
-      feedback_id: 0x202
+      feedback_id: 514
       can_bus_name: can1
 - id: motor_wheel_2
   name: RMMotor
@@ -87,7 +87,7 @@ modules:
     param:
       model: RMMotor::Model::MOTOR_M3508
       reverse: false
-      feedback_id: 0x203
+      feedback_id: 515
       can_bus_name: can1
 - id: motor_wheel_3
   name: RMMotor
@@ -95,7 +95,7 @@ modules:
     param:
       model: RMMotor::Model::MOTOR_M3508
       reverse: false
-      feedback_id: 0x204
+      feedback_id: 516
       can_bus_name: can1
 - id: motor_steer_0
   name: RMMotor
@@ -103,7 +103,7 @@ modules:
     param:
       model: RMMotor::Model::MOTOR_M3508
       reverse: false
-      feedback_id: 0x205
+      feedback_id: 517
       can_bus_name: can1
 - id: motor_steer_1
   name: RMMotor
@@ -111,7 +111,7 @@ modules:
     param:
       model: RMMotor::Model::MOTOR_M3508
       reverse: false
-      feedback_id: 0x206
+      feedback_id: 518
       can_bus_name: can1
 - id: motor_steer_2
   name: RMMotor
@@ -119,7 +119,7 @@ modules:
     param:
       model: RMMotor::Model::MOTOR_M3508
       reverse: false
-      feedback_id: 0x207
+      feedback_id: 519
       can_bus_name: can1
 - id: motor_steer_3
   name: RMMotor
@@ -127,7 +127,7 @@ modules:
     param:
       model: RMMotor::Model::MOTOR_M3508
       reverse: false
-      feedback_id: 0x208
+      feedback_id: 520
       can_bus_name: can1
 - id: motor_pit
   name: RMMotor
@@ -135,7 +135,7 @@ modules:
     param:
       model: RMMotor::Model::MOTOR_GM6020
       reverse: false
-      feedback_id: 0x204
+      feedback_id: 516
       can_bus_name: can2
 - id: motor_yaw
   name: RMMotor
@@ -143,7 +143,7 @@ modules:
     param:
       model: RMMotor::Model::MOTOR_GM6020
       reverse: false
-      feedback_id: 0x205
+      feedback_id: 517
       can_bus_name: can2
 - id: motor_fric_0
   name: RMMotor
@@ -151,7 +151,7 @@ modules:
     param:
       model: RMMotor::Model::MOTOR_M3508
       reverse: false
-      feedback_id: 0x206
+      feedback_id: 518
       can_bus_name: can2
 - id: motor_fric_1
   name: RMMotor
@@ -159,7 +159,7 @@ modules:
     param:
       model: RMMotor::Model::MOTOR_M3508
       reverse: false
-      feedback_id: 0x207
+      feedback_id: 519
       can_bus_name: can2
 - id: motor_trig
   name: RMMotor
@@ -167,7 +167,7 @@ modules:
     param:
       model: RMMotor::Model::MOTOR_M2006
       reverse: false
-      feedback_id: 0x208
+      feedback_id: 520
       can_bus_name: can2
 - id: omni_chassis
   name: Chassis
@@ -324,14 +324,6 @@ modules:
       G_pitch: 0.0
       imu_pitch_min: 0.0
       imu_pitch_max: 0.0
-- id: EventBinder_0
-  name: EventBinder
-  constructor_args:
-    dr16: '@dr16'
-    chassis: '@omni_chassis'
-    cmd: '@cmd'
-  template_args:
-    ChassisType: Omni
 - id: SharedTopic_0
   name: SharedTopic
   constructor_args:
@@ -350,3 +342,34 @@ modules:
     buffer_size: 256
     topic_configs:
     - ahrs_quaternion
+- id: event_bind
+  name: EventBinder
+  constructor_args:
+    modules:
+    - name: dr16
+      module_ref: '@dr16'
+    - name: cmd
+      module_ref: '@cmd'
+    - name: chassis
+      module_ref: '@omni_chassis'
+    event_binding_groups:
+    - bindings:
+      - source_module: dr16
+        source_event: DR16::SwitchPos::DR16_SW_R_POS_MID
+        target_module: cmd
+        target_event: CMD::Mode::CMD_OP_CTRL
+      - source_module: dr16
+        source_event: DR16::SwitchPos::DR16_SW_R_POS_BOT
+        target_module: cmd
+        target_event: CMD::Mode::CMD_AUTO_CTRL
+    - bindings:
+      - source_module: dr16
+        source_event: DR16::SwitchPos::DR16_SW_L_POS_TOP
+        target_module: chassis
+        target_event: ChassisEvent::SET_MODE_RELAX
+      - source_module: dr16
+        source_event: DR16::SwitchPos::DR16_SW_L_POS_MID
+        target_module: chassis
+        target_event: ChassisEvent::SET_MODE_FOLLOW
+  template_args:
+    ChassisType: Omni
