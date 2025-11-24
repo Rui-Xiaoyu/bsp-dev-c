@@ -59,11 +59,11 @@ USB:
     cdc_tx_fifo_size: 128
     cdc_rx_fifo_size: 128
     cdc_queue_size: 3
-    vid: 1155
-    pid: 22336
+    vid: 5840
+    pid: 5266
     bcd: 62471
-    manufacturer: XRobot
-    product: STM32 XRUSB USB_OTG_FS CDC Demo
+    manufacturer: QDU-Future
+    product: MainCtrl
     serial: '123456789'
   usb_otg_hs:
     enable: true
@@ -76,11 +76,11 @@ USB:
     cdc_tx_fifo_size: 128
     cdc_rx_fifo_size: 128
     cdc_queue_size: 3
-    vid: 1155
-    pid: 22336
+    vid: 5840
+    pid: 5266
     bcd: 62471
-    manufacturer: XRobot
-    product: STM32 XRUSB USB_OTG_HS CDC Demo
+    manufacturer: QDU-Future
+    product: MainCtrl
     serial: '123456789'
   usb_device:
     enable: false
